@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// All enemies should extend this
+/// </summary>
 public abstract class EnemyBase : ShipBase {
-	public int expYield;
-	public int enemyCapCount;
+	//Serialized Fields
+	public int expYield;			//How much EXP this is worth
+	public int enemyCapCount;		//How much this counts to the enemy count (to keep from cluttering the map)
 
+	//CALL IN THE START METHOD FOR EACH SUBCLASS
 	public override void SetUp () {
 		base.SetUp ();
 		GameObject manager = GameObject.FindWithTag ("GameController");
@@ -12,13 +17,19 @@ public abstract class EnemyBase : ShipBase {
 			manager.GetComponent<Manager> ().Spawned (this);
 		}
 	}
+
+	//Override in subclasses to prevent null pointers when the player dies
+	/// <summary>
+	/// Called when the player is killed
+	/// </summary>
 	public virtual void PlayerKilled () {
 		
 	}
 
+	//Called when the object is destroyed
 	void OnDestroy () {
 		GameObject manager = GameObject.FindWithTag ("GameController");
-		if (manager != null && this.health <= 0) {
+		if (manager != null && this.health <= 0) {					//Confirms that the enemy ran out of health rather than being deleted by levelUp, container, ect.
 			manager.GetComponent<Manager> ().Destroyed (this);
 		}
 	}

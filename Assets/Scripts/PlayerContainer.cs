@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///Prevents the player from going off the screen, or too close to the edges
+/// </summary>
 public class PlayerContainer : MonoBehaviour {
-	public Rect bounds;
+	//Serializable Fields
+	public Rect bounds;				//Player boundries
+
 	// Use this for initialization
 	void Start () {
 		EdgeCollider2D edgeCollider = this.GetComponent <EdgeCollider2D> ();

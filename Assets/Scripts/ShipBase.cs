@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// All ships should extend this, or a derived class of this
+/// </summary>
 public class ShipBase : MonoBehaviour {
-	public int healthMax;
-	public float speed;
-	public float acceleration;
-	public float rotationalCap;
-	protected Vector2 targetVelocity;
-	protected float targetAngle;
-	protected int health;
-	private float force;
+	//Serialized Variables
+	public int healthMax;				//Max and starting health
+	public float speed;					//Max speed in units / second
+	public float acceleration;			//Max acceleration in units / second ^2
+	public float rotationalCap;			//Max rotational speed in degrees / second
+
+	//Accessable in derived classes
+	protected Vector2 targetVelocity;	//The intended velocity vector, set this in derived class's OnUpdate method
+	protected float targetAngle;		//The intended angle in degrees from the x axis, set this in derived class's OnUpdate method
+	protected int health;				//Current health
+
+	private float force;				//Used to move the object
 
 
 	// CALL THIS IN START OF SUBCLASSES
@@ -18,57 +25,22 @@ public class ShipBase : MonoBehaviour {
 		force = acceleration * rigidbody2D.mass;
 	}
 
+	//Call to damage the player
 	public void Damage (int amount) {
 		health -= amount;
 		if (health <= 0) {
-			Destroy(gameObject);
+			Destroy(this.gameObject);
 		}
 	}
 
-	//If a derived class overrides FixedUpdate, this must be called
+	//If a derived class needs to call FixedUpdate, this won't be called
+	//Called each physics frame
 	void FixedUpdate () {
 		rotate (targetAngle);
 		rigidbody2D.AddForce((targetVelocity - rigidbody2D.velocity).normalized * force);
 	}
-	/*protected void UpdateTransform (Vector2 targetVelocity, float targetAngle) {
-		velocity.x = accelerate (velocity.x, targetVelocity.x);
-		velocity.y = accelerate (velocity.y, targetVelocity.y);
-		transform.position += velocity * Time.deltaTime;
-		transform.rotation = Quaternion.Euler (0, 0, 
-			rotate(transform.rotation.eulerAngles.z, targetAngle));
-		if (isBounded) {
-			Vector3 location = transform.position;
-			if (location.x > bounds.xMax) {
-				location.x = bounds.xMax;
-				velocity.x = 0;
-			}
-			if (location.x < bounds.xMin) {
-				location.x = bounds.xMin;
-				velocity.x = 0;
-			}
-			if (location.y > bounds.yMax) {
-				location.y = bounds.yMax;
-				velocity.y = 0;
-			}
-			if (location.y < bounds.yMin) {
-				location.y = bounds.yMin;
-				velocity.y = 0;
-			}
-			transform.position = location;
-		}
-	}
 
-	float accelerate (float value, float goal) {
-		if (value == goal) {
-			return value;
-		}
-		if (value > goal) {
-			return Mathf.Max (value - acceleration * Time.deltaTime, goal);
-		} else {
-			return Mathf.Min (value + acceleration * Time.deltaTime, goal);
-		}
-	}*/
-
+	//Helper method for moving toward the goal angle
 	void rotate (float goal) {
 		float diff = Mathf.Abs(rigidbody2D.rotation - goal);
 		if (diff == 0) {
@@ -81,7 +53,7 @@ public class ShipBase : MonoBehaviour {
 			rigidbody2D.rotation = goal;
 		} else {
 			float sign = (Mathf.Abs(goal - rigidbody2D.rotation) == diff) ? Mathf.Sign(goal - rigidbody2D.rotation) : Mathf.Sign(rigidbody2D.rotation - goal);
-			rigidbody2D.rotation += Time.deltaTime * rotationalCap * sign;
+			rigidbody2D.rotation += Time.fixedDeltaTime * rotationalCap * sign;
 		}
 	}
 }

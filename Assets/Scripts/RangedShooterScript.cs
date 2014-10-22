@@ -1,19 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Script of a ranged enemy
+/// </summary>
 public class RangedShooterScript : EnemyBase {
-	public int damage;
-	public GameObject projectile;
-	public float maxRange;
-	public float minRange;
-	private GameObject player;
-	private Vector2 direction;
-	private Transform projectileSpawn;
-	private Animator animator;
-	private int animFireHash;
-	private bool firing;
-	private float distance;
-	private float projectileSpeed;
+	//Serialized Fields
+	public int damage;						//The damage per shot
+	public GameObject projectile;			//The projectile to use (must have a LaserScript or will crash)
+	public float maxRange;					//Max range (if player is further than this move toward player)		No effect on projectile range
+	public float minRange;					//Min range (if player is closer than this move away from player)	No effect on projecile range
+
+	private GameObject player;				
+	private Vector2 direction;				
+	private Transform projectileSpawn;		//Empty child GameObject where the projectile spawns
+	private Animator animator;				
+	private int animFireHash;				//The hash for the Fire field in the animator
+	private bool firing;					//Used to instantiate the projectile when charging animation re-begins
+	private float distance;					
+	private float projectileSpeed;			//The speed of the projecile (taken from the projectile prefab)
+	private float a, b, c, plus, minus;		//Used in PredictedLocation, here because they are used every frame
 
 	// Use this for initialization
 	void Start () {
@@ -24,9 +30,10 @@ public class RangedShooterScript : EnemyBase {
 		animFireHash = Animator.StringToHash ("Fire");
 		projectileSpeed = projectile.GetComponent<LaserScript> ().speed;
 	}
-	
+
+	//Called each frame
 	void Update () {
-		if (player != null) {
+		if (player != null) {				//Confirms that player is in the world
 			direction = (Vector2)(player.transform.position - transform.position);
 			targetAngle = Vector2.Angle (PredictedLocation(direction, player.rigidbody2D.velocity, projectileSpeed), Vector2.right);
 		}
@@ -41,35 +48,44 @@ public class RangedShooterScript : EnemyBase {
 		if (direction.y < 0) {
 			targetAngle = 360 - targetAngle;
 		}
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName("PinkChargedAnim")){
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("PinkChargedAnim")){				//Is is charged, and is the shot lined up
 			animator.SetBool(animFireHash, TargetAquired());
 		}
-		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("PinkFiringAnim")) {
+		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("PinkFiringAnim")) {			//Is it firing
 			firing = true;
 		}
-		if (firing && animator.GetCurrentAnimatorStateInfo(0).IsName("PinkChargeAnim")) {
+		if (firing && animator.GetCurrentAnimatorStateInfo(0).IsName("PinkChargeAnim")) {	//Is it charging and was just firing, if so create the projectile
 			Instantiate(projectile, projectileSpawn.position, transform.rotation);
 			firing = false;
 		}
 	}
 	
+	// Tells the enemy to stop looking for the player when they die (prevents null pointer error)
+	/// <summary>
+	/// Called when the player is killed
+	/// </summary>
 	public override void PlayerKilled () {
 		player = null;
+		direction = direction.normalized * (minRange + maxRange) / 2;
 	}
 
+	//Used to stop firing if the shot isn't lined up (broken by aiming change so always returns true)
 	bool TargetAquired () {
-		return true; //Seems legit 
+		return true; //Seems legit
 		/*RaycastHit2D raycast = Physics2D.Raycast (rigidbody2D.position, (Vector2)projectileSpawn.position - rigidbody2D.position, 50, 1<<11);
 		return raycast.collider != null;*/
 	}
 
+	//Predicts the player's location when the projectile will hit them
 	Vector2 PredictedLocation (Vector2 position, Vector2 velocity, float speed) {
-		float a = speed * speed - velocity.sqrMagnitude;
-		float b = -2 * (position.x * velocity.x + position.y * velocity.y);
-		float c = -position.sqrMagnitude;
-		float minus = (-b - Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
-		float plus = (-b + Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
-		float time = minus > 0 ? minus : plus;
-		return position + velocity * time;
+		//Quadratic formula for 
+		//speed * time = sqrt((position.x + velocity.x * time)^2 + (position.y + velocity.y)^2)
+		//Some algebra required
+		a = speed * speed - velocity.sqrMagnitude;
+		b = -2 * (position.x * velocity.x + position.y * velocity.y);
+		c = -position.sqrMagnitude;
+		minus = (-b - Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
+		plus = (-b + Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
+		return position + velocity * (minus > 0 ? minus : plus);
 	}
 }

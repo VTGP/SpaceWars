@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Main GUI Script
+/// </summary>
 public class MainGUI : MonoBehaviour {
-	public Texture barTexture;
-	public Rect normalizedExpBar;
-	public Rect normalizedHealthBar;
-	private Rect pixelExpBar;
+	//Serialized Fields
+	public Texture barTexture;			//The texture of the health/exp bars
+	public Rect normalizedExpBar;		//Exp bar location each dimension 0-1 with 1 being the screen dimension
+	public Rect normalizedHealthBar;	//Health bar location each dimension 0-1 with 1 being the screen dimension
+
+	private Rect pixelExpBar;			
 	private Rect pixelHealthBar;
 	private PlayerShipController player;
 	private Manager manager;
 	private float expPercent;
 	private float healthPercent;
+
 	// Use this for initialization
 	void Start () {
 		pixelExpBar = new Rect (normalizedExpBar.x * camera.pixelWidth, normalizedExpBar.y * camera.pixelHeight, 
