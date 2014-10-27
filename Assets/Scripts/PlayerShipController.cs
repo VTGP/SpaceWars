@@ -18,6 +18,7 @@ public class PlayerShipController : ShipBase {
 	private float fireTime;				//Timer to when it can fire again (0 when ready)
 	private Camera mainCamera;			
 	private Vector2 mouseDelta;			//Where the mouse is relative to the player in the world
+	private Manager manager;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,7 @@ public class PlayerShipController : ShipBase {
 		mainCamera = GameObject.Find ("Main Camera").camera;		//Sets up the camera point to world point method
 		cameraBounds = new Rect (-mainCamera.orthographicSize * mainCamera.aspect, -mainCamera.orthographicSize,
 			2 * mainCamera.orthographicSize * mainCamera.aspect, 2 * mainCamera.orthographicSize);
+		manager = GameObject.Find ("Manager").GetComponent <Manager> ();
 	}
 
 	//Called each frame
@@ -62,4 +64,9 @@ public class PlayerShipController : ShipBase {
 		}
 	}
 
+	public override void Damage (int amount) {
+		if (!manager.RemoveExp (amount)) {
+			Destroy(this.gameObject);
+		}
+	}
 }

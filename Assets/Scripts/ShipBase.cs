@@ -26,7 +26,7 @@ public class ShipBase : MonoBehaviour {
 	}
 
 	//Call to damage the player
-	public void Damage (int amount) {
+	public virtual void Damage (int amount) {
 		health -= amount;
 		if (health <= 0) {
 			Destroy(this.gameObject);

@@ -177,12 +177,6 @@ MonoBehaviour:
     y: .925000012
     width: .800000012
     height: .0250000004
-  normalizedHealthBar:
-    serializedVersion: 2
-    x: .200000003
-    y: .0250000004
-    width: .600000024
-    height: .0250000004
 --- !u!1 &494281061
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +341,7 @@ GameObject:
   - 114: {fileID: 1348659637}
   - 114: {fileID: 1348659640}
   - 114: {fileID: 1348659639}
+  - 114: {fileID: 1348659641}
   m_Layer: 0
   m_Name: Manager
   m_TagString: GameController
@@ -368,7 +363,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 100000, guid: 711a1d2dd9bcc574b86ca880a260a4e4, type: 2}
   - {fileID: 100000, guid: e4b9b0cb14b813545954cd811479d55b, type: 2}
-  levelStart: 0
+  - {fileID: 100000, guid: 38737c2b29165284facd40ef610a7d06, type: 2}
+  levelStart: 2
   startDelay: 2
   spawnBoxCorner: {x: 40, y: 30}
 --- !u!4 &1348659638
@@ -398,10 +394,11 @@ MonoBehaviour:
   spawnRates:
   - .75
   - .25
-  startCount: 0200000001000000
+  - 0
+  startCount: 020000000100000000000000
   timeBetweenSpawns: 1
   maxEnemies: 15
-  expRequired: 150
+  expRequired: 50
 --- !u!114 &1348659640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,10 +414,31 @@ MonoBehaviour:
   spawnRates:
   - 1
   - 0
-  startCount: 0200000000000000
+  - 0
+  startCount: 020000000000000000000000
   timeBetweenSpawns: 1
   maxEnemies: 10
-  expRequired: 100
+  expRequired: 40
+--- !u!114 &1348659641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1348659636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da95432d788ca98448488b5e007f466f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 2
+  spawnRates:
+  - 0
+  - 0
+  - 1
+  startCount: 000000000000000000000000
+  timeBetweenSpawns: 1
+  maxEnemies: 15
+  expRequired: 75
 --- !u!1 &1786582897
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class LevelScript : MonoBehaviour {
 		float lower = 0;
 		for (int c = spawnChances.Length - 1; c >= 0; c--) {
 			spawnChances[c] = lower;
-			lower = spawnRates[c];
+			lower += spawnRates[c];
 		}
 	}
 

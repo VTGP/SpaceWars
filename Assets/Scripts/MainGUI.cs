@@ -8,36 +8,36 @@ public class MainGUI : MonoBehaviour {
 	//Serialized Fields
 	public Texture barTexture;			//The texture of the health/exp bars
 	public Rect normalizedExpBar;		//Exp bar location each dimension 0-1 with 1 being the screen dimension
-	public Rect normalizedHealthBar;	//Health bar location each dimension 0-1 with 1 being the screen dimension
+	//public Rect normalizedHealthBar;	//Health bar location each dimension 0-1 with 1 being the screen dimension
 
 	private Rect pixelExpBar;			
-	private Rect pixelHealthBar;
+	//private Rect pixelHealthBar;
 	private PlayerShipController player;
 	private Manager manager;
 	private float expPercent;
-	private float healthPercent;
+	//private float healthPercent;
 
 	// Use this for initialization
 	void Start () {
 		pixelExpBar = new Rect (normalizedExpBar.x * camera.pixelWidth, normalizedExpBar.y * camera.pixelHeight, 
 			normalizedExpBar.width * camera.pixelWidth, normalizedExpBar.height * camera.pixelHeight);
-		pixelHealthBar = new Rect (normalizedHealthBar.x * camera.pixelWidth, normalizedHealthBar.y * camera.pixelHeight,
-		    normalizedHealthBar.width * camera.pixelWidth, normalizedHealthBar.height * camera.pixelHeight);
+		//pixelHealthBar = new Rect (normalizedHealthBar.x * camera.pixelWidth, normalizedHealthBar.y * camera.pixelHeight,
+		//    normalizedHealthBar.width * camera.pixelWidth, normalizedHealthBar.height * camera.pixelHeight);
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerShipController> ();
 		manager = GameObject.FindGameObjectWithTag ("GameController").GetComponent<Manager> ();
 	}
 	
 	void OnGUI () {
 		expPercent = manager.expPercent;
-		healthPercent = player.healthPercent;
+		//healthPercent = player.healthPercent;
 
 		GUI.DrawTextureWithTexCoords (pixelExpBar , barTexture, new Rect (0, 0.75F, 1, 0.25F));
 		GUI.DrawTextureWithTexCoords (RectSqueeseLeft(pixelExpBar, expPercent), barTexture, new Rect (0, 0.5F, expPercent, 0.25F));
 		GUI.DrawTextureWithTexCoords (RectSqueeseRight(pixelExpBar, expPercent), barTexture, new Rect (expPercent, 0.0F, 1 - expPercent, 0.25F));
 
-		GUI.DrawTextureWithTexCoords (pixelHealthBar, barTexture, new Rect (0, 0.75F, 1, 0.25F));
-		GUI.DrawTextureWithTexCoords (RectSqueeseLeft (pixelHealthBar, healthPercent), barTexture, new Rect (0, 0.5F, healthPercent, 0.25F));
-		GUI.DrawTextureWithTexCoords (RectSqueeseRight (pixelHealthBar, healthPercent), barTexture, new Rect (healthPercent, 0.25F, 1 - healthPercent, 0.25F));
+		//GUI.DrawTextureWithTexCoords (pixelHealthBar, barTexture, new Rect (0, 0.75F, 1, 0.25F));
+		//GUI.DrawTextureWithTexCoords (RectSqueeseLeft (pixelHealthBar, healthPercent), barTexture, new Rect (0, 0.5F, healthPercent, 0.25F));
+		//GUI.DrawTextureWithTexCoords (RectSqueeseRight (pixelHealthBar, healthPercent), barTexture, new Rect (healthPercent, 0.25F, 1 - healthPercent, 0.25F));
 	}
 
 	Rect RectSqueeseLeft(Rect rect, float percent) {

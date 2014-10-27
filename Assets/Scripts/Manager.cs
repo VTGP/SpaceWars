@@ -126,4 +126,16 @@ public class Manager : MonoBehaviour {
 	public void Spawned (EnemyBase spawned) {
 		enemyCount += spawned.enemyCapCount;
 	}
+
+	///<summary>
+	/// Reduces exp, returns false if doing so would result in less than 0 exp
+	/// </summary>
+	public bool RemoveExp(int amount) {
+		if (exp < amount) {
+			return false;
+		} else {
+			exp -= amount;
+			return true;
+		}
+	}
 }

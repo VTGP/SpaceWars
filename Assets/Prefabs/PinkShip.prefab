@@ -116,7 +116,7 @@ MonoBehaviour:
   speed: 10
   acceleration: 10
   rotationalCap: 180
-  expYield: 5
+  expYield: 1
   enemyCapCount: 1
   damage: 1
   projectile: {fileID: 100000, guid: 38c67dc09f76dc041b75ea02003bedb4, type: 2}
@@ -140,7 +140,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
+  m_SortingLayerID: 3104877635
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1c6c2c3e64594e54fae3458e1527c4d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
