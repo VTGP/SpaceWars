@@ -14,7 +14,7 @@ GameObject:
   - 50: {fileID: 5000000}
   - 61: {fileID: 6100000}
   m_Layer: 8
-  m_Name: PinkShip
+  m_Name: Constructor
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400002}
-  m_Layer: 8
-  m_Name: ProjectileSpawn
+  m_Layer: 0
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: .300000012, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -66,11 +66,11 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mass: 10
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
-  m_FixedAngle: 1
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -84,8 +84,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .850000024, y: .5}
-  m_Center: {x: .0500000007, y: 0}
+  m_Size: {x: 3.75, y: 3.5}
+  m_Center: {x: 0, y: 0}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e470c6d6c5072624b846e5d0a6a1320e, type: 2}
+  m_Controller: {fileID: 9100000, guid: f1aea4d4af029924c8a482d5ab3a2637, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -109,19 +109,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217158ca3f0585f478d3fd6c29d97737, type: 3}
+  m_Script: {fileID: 11500000, guid: 7eaf35790cbd43d44b8944231ff13643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 1
-  speed: 10
-  acceleration: 10
-  rotationalCap: 180
-  expYield: 1
-  enemyCapCount: 1
-  damage: 1
-  projectile: {fileID: 100000, guid: 38c67dc09f76dc041b75ea02003bedb4, type: 2}
-  maxRange: 50
-  minRange: 20
+  healthMax: 5
+  speed: 5
+  acceleration: 1
+  rotationalCap: 45
+  expYield: 5
+  enemyCapCount: 2
+  spawn: {fileID: 100000, guid: 39a454e478afda14e804014a3ff79315, type: 2}
+  circleRadius: 30
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -142,7 +140,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 3104877635
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c6c2c3e64594e54fae3458e1527c4d7, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 875d26c20ea79db42a1a5f6d105803e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

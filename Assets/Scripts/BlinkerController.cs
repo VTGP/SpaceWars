@@ -67,9 +67,9 @@ public class BlinkerController : EnemyBase {
 			}
 		}
 		//Maintains a distance within attack range and outside of the detection range from player
-		if (direction.magnitude > attackRange) {
+		if (direction.sqrMagnitude > attackRange * attackRange) {
 			targetVelocity = direction.normalized * speed;
-		} else if (direction.magnitude < detectionRange) {
+		} else if (direction.sqrMagnitude < detectionRange * detectionRange) {
 			targetVelocity = -direction.normalized * speed;
 		} else {
 			targetVelocity = Vector2.zero;
@@ -106,5 +106,14 @@ public class BlinkerController : EnemyBase {
 	void Blink (Vector2 location) {
 		transform.position = location;
 		blinkCooldown = timeBetweenBlinks;
+	}
+
+	///<summary>
+	/// Called when the player is killed
+	/// </summary>
+	public override void PlayerKilled() {
+		player = null;
+		this.targetVelocity = Vector2.zero;
+		direction = direction.normalized * attackRange;
 	}
 }

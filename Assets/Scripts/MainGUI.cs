@@ -12,7 +12,7 @@ public class MainGUI : MonoBehaviour {
 
 	private Rect pixelExpBar;			
 	//private Rect pixelHealthBar;
-	private PlayerShipController player;
+	//private PlayerShipController player;
 	private Manager manager;
 	private float expPercent;
 	//private float healthPercent;
@@ -23,7 +23,7 @@ public class MainGUI : MonoBehaviour {
 			normalizedExpBar.width * camera.pixelWidth, normalizedExpBar.height * camera.pixelHeight);
 		//pixelHealthBar = new Rect (normalizedHealthBar.x * camera.pixelWidth, normalizedHealthBar.y * camera.pixelHeight,
 		//    normalizedHealthBar.width * camera.pixelWidth, normalizedHealthBar.height * camera.pixelHeight);
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerShipController> ();
+		//player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerShipController> ();
 		manager = GameObject.FindGameObjectWithTag ("GameController").GetComponent<Manager> ();
 	}
 	

@@ -23,7 +23,7 @@ public abstract class EnemyBase : ShipBase {
 	/// Called when the player is killed
 	/// </summary>
 	public virtual void PlayerKilled () {
-		
+
 	}
 
 	//Called when the object is destroyed

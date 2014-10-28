@@ -6,7 +6,6 @@ using System.Collections;
 /// </summary>
 public class RangedShooterScript : EnemyBase {
 	//Serialized Fields
-	public int damage;						//The damage per shot
 	public GameObject projectile;			//The projectile to use (must have a LaserScript or will crash)
 	public float maxRange;					//Max range (if player is further than this move toward player)		No effect on projectile range
 	public float minRange;					//Min range (if player is closer than this move away from player)	No effect on projecile range
@@ -71,7 +70,7 @@ public class RangedShooterScript : EnemyBase {
 
 	//Used to stop firing if the shot isn't lined up (broken by aiming change so always returns true)
 	bool TargetAquired () {
-		return true; //Seems legit
+		return player != null;
 		/*RaycastHit2D raycast = Physics2D.Raycast (rigidbody2D.position, (Vector2)projectileSpawn.position - rigidbody2D.position, 50, 1<<11);
 		return raycast.collider != null;*/
 	}

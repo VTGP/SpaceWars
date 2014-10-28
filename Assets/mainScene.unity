@@ -432,9 +432,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 2
   spawnRates:
-  - 0
-  - 0
-  - 1
+  - .200000003
+  - .200000003
+  - .600000024
   startCount: 000000000000000000000000
   timeBetweenSpawns: 1
   maxEnemies: 15

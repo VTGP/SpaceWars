@@ -11,26 +11,11 @@ GameObject:
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400000}
+  - 58: {fileID: 5800000}
   - 50: {fileID: 5000000}
-  - 61: {fileID: 6100000}
   m_Layer: 8
-  m_Name: PinkShip
+  m_Name: GreenieConstructed
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &100002
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 400002}
-  m_Layer: 8
-  m_Name: ProjectileSpawn
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,22 +28,9 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 400002}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!4 &400002
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .800000012, y: .800000012, z: 1}
   m_Children: []
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5000000
 Rigidbody2D:
@@ -75,8 +47,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!61 &6100000
-BoxCollider2D:
+--- !u!58 &5800000
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -84,8 +56,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .850000024, y: .5}
-  m_Center: {x: .0500000007, y: 0}
+  m_Radius: .400000006
+  m_Center: {x: 0, y: 0}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -95,7 +67,7 @@ Animator:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e470c6d6c5072624b846e5d0a6a1320e, type: 2}
+  m_Controller: {fileID: 9100000, guid: d6b4c6b9b54b975408a53dfb02ecfd54, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -109,19 +81,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 217158ca3f0585f478d3fd6c29d97737, type: 3}
+  m_Script: {fileID: 11500000, guid: 2caf32a7b03ad954aa2798faee66e624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 1
-  speed: 10
+  speed: 15
   acceleration: 10
-  rotationalCap: 180
+  rotationalCap: 360
   expYield: 1
-  enemyCapCount: 1
-  damage: 1
-  projectile: {fileID: 100000, guid: 38c67dc09f76dc041b75ea02003bedb4, type: 2}
-  maxRange: 50
-  minRange: 20
+  enemyCapCount: 0
+  damage: 3
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -142,7 +111,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 3104877635
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c6c2c3e64594e54fae3458e1527c4d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d85684b80ffeb4547b0f9784bda2541f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
