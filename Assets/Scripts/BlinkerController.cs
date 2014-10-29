@@ -13,8 +13,7 @@ public class BlinkerController : EnemyBase {
 	public float timeBetweenAttacks;
 	public float attackTime;
 	public int damage;
-	
-	private Vector2 direction;
+
 	private float blinkCooldown;
 	private Animator animator;
 	private int blinkHash;
@@ -39,6 +38,7 @@ public class BlinkerController : EnemyBase {
 	
 	// Update is called once per frame
 	void Update () {
+		Vector2 direction = Vector2.zero;
 		//Cools down the weapon
 		if (attackCooldown > 0) {
 			attackCooldown -= Time.deltaTime;
@@ -89,7 +89,7 @@ public class BlinkerController : EnemyBase {
 	}
 
 	/// <summary>
-	/// Blinks away from the specified rigidbody
+	/// Sets Blink Location
 	/// </summary>
 	/// <param name="r">Rigidbody to avoid</param>
 	// More Work needed on strategicly dodging
@@ -114,6 +114,5 @@ public class BlinkerController : EnemyBase {
 	public override void PlayerKilled() {
 		player = null;
 		this.targetVelocity = Vector2.zero;
-		direction = direction.normalized * attackRange;
 	}
 }

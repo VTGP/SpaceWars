@@ -10,15 +10,12 @@ public class RangedShooterScript : EnemyBase {
 	public float maxRange;					//Max range (if player is further than this move toward player)		No effect on projectile range
 	public float minRange;					//Min range (if player is closer than this move away from player)	No effect on projecile range
 
-	private GameObject player;				
-	private Vector2 direction;				
+	private GameObject player;						
 	private Transform projectileSpawn;		//Empty child GameObject where the projectile spawns
 	private Animator animator;				
 	private int animFireHash;				//The hash for the Fire field in the animator
-	private bool firing;					//Used to instantiate the projectile when charging animation re-begins
-	private float distance;					
+	private bool firing;					//Used to instantiate the projectile when charging animation re-begins				
 	private float projectileSpeed;			//The speed of the projecile (taken from the projectile prefab)
-	private float a, b, c, plus, minus;		//Used in PredictedLocation, here because they are used every frame
 
 	// Use this for initialization
 	void Start () {
@@ -32,11 +29,14 @@ public class RangedShooterScript : EnemyBase {
 
 	//Called each frame
 	void Update () {
+		Vector2 direction = Vector2.zero;
 		if (player != null) {				//Confirms that player is in the world
 			direction = (Vector2)(player.transform.position - transform.position);
-			targetAngle = Vector2.Angle (PredictedLocation(direction, player.rigidbody2D.velocity, projectileSpeed), Vector2.right);
+			targetAngle = Vector2.Angle (PredictedLocation (direction, player.rigidbody2D.velocity, projectileSpeed), Vector2.right);
+		} else {
+			direction = direction.normalized * (minRange + maxRange) / 2;
 		}
-		distance = direction.magnitude;
+		float distance = direction.magnitude;
 		if (distance > maxRange) {
 			targetVelocity = direction.normalized * speed;
 		} else if (distance < minRange) {
@@ -65,7 +65,6 @@ public class RangedShooterScript : EnemyBase {
 	/// </summary>
 	public override void PlayerKilled () {
 		player = null;
-		direction = direction.normalized * (minRange + maxRange) / 2;
 	}
 
 	//Used to stop firing if the shot isn't lined up (broken by aiming change so always returns true)
@@ -80,11 +79,11 @@ public class RangedShooterScript : EnemyBase {
 		//Quadratic formula for 
 		//speed * time = sqrt((position.x + velocity.x * time)^2 + (position.y + velocity.y)^2)
 		//Some algebra required
-		a = speed * speed - velocity.sqrMagnitude;
-		b = -2 * (position.x * velocity.x + position.y * velocity.y);
-		c = -position.sqrMagnitude;
-		minus = (-b - Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
-		plus = (-b + Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
+		float a = speed * speed - velocity.sqrMagnitude;
+		float b = -2 * (position.x * velocity.x + position.y * velocity.y);
+		float c = -position.sqrMagnitude;
+		float minus = (-b - Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
+		float plus = (-b + Mathf.Sqrt (b * b - 4 * a * c)) / (2 * a);
 		return position + velocity * (minus > 0 ? minus : plus);
 	}
 }

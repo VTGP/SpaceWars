@@ -12,7 +12,7 @@ public class ConstructorScript : EnemyBase {
 	private bool shouldSpawn;
 	private int idleNameHash;
 	private Transform spawnPoint;
-	private int animName;
+
 	// Use this for initialization
 	void Start () {
 		SetUp ();
@@ -24,7 +24,7 @@ public class ConstructorScript : EnemyBase {
 	
 	// Update is called once per frame
 	void Update () {
-		animName = animator.GetCurrentAnimatorStateInfo (0).nameHash;
+		int animName = animator.GetCurrentAnimatorStateInfo (0).nameHash;
 		if (shouldSpawn &&  animName == idleNameHash) {
 			Instantiate (spawn, spawnPoint.position, spawnPoint.rotation);
 			shouldSpawn = false;

@@ -14,7 +14,6 @@ public class MainGUI : MonoBehaviour {
 	//private Rect pixelHealthBar;
 	//private PlayerShipController player;
 	private Manager manager;
-	private float expPercent;
 	//private float healthPercent;
 
 	// Use this for initialization
@@ -28,7 +27,7 @@ public class MainGUI : MonoBehaviour {
 	}
 	
 	void OnGUI () {
-		expPercent = manager.expPercent;
+		float expPercent = manager.expPercent;
 		//healthPercent = player.healthPercent;
 
 		GUI.DrawTextureWithTexCoords (pixelExpBar , barTexture, new Rect (0, 0.75F, 1, 0.25F));

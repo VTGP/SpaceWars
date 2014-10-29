@@ -17,7 +17,6 @@ public class PlayerShipController : ShipBase {
 	private Rect cameraBounds;			//Camera point to world point convertion...thing
 	private float fireTime;				//Timer to when it can fire again (0 when ready)
 	private Camera mainCamera;			
-	private Vector2 mouseDelta;			//Where the mouse is relative to the player in the world
 	private Manager manager;
 
 	// Use this for initialization
@@ -31,7 +30,7 @@ public class PlayerShipController : ShipBase {
 
 	//Called each frame
 	void Update () {
-		mouseDelta = CameraToWorld (Input.mousePosition) - (Vector2)transform.position;
+		Vector2 mouseDelta = CameraToWorld (Input.mousePosition) - (Vector2)transform.position;
 		targetVelocity = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical")).normalized * speed; 		//Retrieves input from the axis variables
 		targetAngle = mouseDelta.y < 0 ? 360 - Vector2.Angle(mouseDelta, Vector2.right) : Vector2.Angle(mouseDelta, Vector2.right);
 		if (fireTime > 0) {

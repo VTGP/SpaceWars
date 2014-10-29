@@ -364,7 +364,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: 711a1d2dd9bcc574b86ca880a260a4e4, type: 2}
   - {fileID: 100000, guid: e4b9b0cb14b813545954cd811479d55b, type: 2}
   - {fileID: 100000, guid: 38737c2b29165284facd40ef610a7d06, type: 2}
-  levelStart: 2
+  levelStart: 0
   startDelay: 2
   spawnBoxCorner: {x: 40, y: 30}
 --- !u!4 &1348659638

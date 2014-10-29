@@ -9,7 +9,6 @@ public class CrasherControler : EnemyBase {
 	public int damage;					//The amount of damage dealt upon colliding
 
 	private GameObject player;
-	private Vector2 direction;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +18,7 @@ public class CrasherControler : EnemyBase {
 
 	//Called each frame
 	void Update () {
+		Vector2 direction = Vector2.zero;
 		if (player != null) {			//Confirms that player is in the world
 			direction = (Vector2)(player.transform.position - transform.position);
 		}
@@ -43,6 +43,5 @@ public class CrasherControler : EnemyBase {
 	/// </summary>
 	public override void PlayerKilled () {
 		player = null;
-		direction = Vector2.zero;
 	}
 }
