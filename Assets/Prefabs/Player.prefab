@@ -72,7 +72,7 @@ MonoBehaviour:
   speed: 15
   acceleration: 30
   rotationalCap: 360
-  timePerShot: .25
+  timePerShot: .5
   laser: {fileID: 100000, guid: 4faa89ea1be4e4441b5be073fdf895dc, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:

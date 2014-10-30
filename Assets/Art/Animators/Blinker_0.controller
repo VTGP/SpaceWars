@@ -119,5 +119,5 @@ StateMachine:
       second:
       - {fileID: 110188722}
   m_MotionSetCount: 1
-  m_AnyStatePosition: {x: -120, y: -36, z: 0}
+  m_AnyStatePosition: {x: -228, y: 24, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
