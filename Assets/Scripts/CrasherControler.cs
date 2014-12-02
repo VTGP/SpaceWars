@@ -6,7 +6,6 @@ using System.Collections;
 /// </summary>
 public class CrasherControler : EnemyBase {
 	//Serialized Fields
-	public int damage;					//The amount of damage dealt upon colliding
 
 	private GameObject player;
 
@@ -27,15 +26,6 @@ public class CrasherControler : EnemyBase {
 		if (direction.y < 0) {											// Gets rotation from a vector
 			targetAngle = 360 - targetAngle;							//
 		}																//
-	}
-
-	//Called upon colliding with another object
-	void OnCollisionEnter2D (Collision2D collision) {
-		ShipBase ship = collision.gameObject.GetComponent<ShipBase> ();
-		if (ship != null) {
-			ship.Damage(damage);
-			Destroy (gameObject);
-		}
 	}
 	
 	/// <summary>

@@ -112,6 +112,7 @@ MonoBehaviour:
   rotationalCap: 360
   expYield: 2
   enemyCapCount: 1
+  collisionDamage: 1
   timeBetweenBlinks: .75
   normalizedTimeOfBlink: .5
   blinkRange: 15

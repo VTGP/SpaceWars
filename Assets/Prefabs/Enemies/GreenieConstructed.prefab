@@ -90,7 +90,7 @@ MonoBehaviour:
   rotationalCap: 360
   expYield: 1
   enemyCapCount: 0
-  damage: 3
+  collisionDamage: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

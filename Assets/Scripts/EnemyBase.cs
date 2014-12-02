@@ -8,6 +8,7 @@ public abstract class EnemyBase : ShipBase {
 	//Serialized Fields
 	public int expYield;			//How much EXP this is worth
 	public int enemyCapCount;		//How much this counts to the enemy count (to keep from cluttering the map)
+	public int collisionDamage;					//The amount of damage dealt upon colliding
 
 	//CALL IN THE START METHOD FOR EACH SUBCLASS
 	public override void SetUp () {
@@ -24,6 +25,15 @@ public abstract class EnemyBase : ShipBase {
 	/// </summary>
 	public virtual void PlayerKilled () {
 
+	}
+
+	//Called upon colliding with another object
+	void OnCollisionEnter2D (Collision2D collision) {
+		ShipBase ship = collision.gameObject.GetComponent<ShipBase> ();
+		if (ship != null) {
+			ship.Damage(collisionDamage);
+			Destroy (gameObject);
+		}
 	}
 
 	//Called when the object is destroyed

@@ -118,6 +118,7 @@ MonoBehaviour:
   rotationalCap: 180
   expYield: 1
   enemyCapCount: 1
+  collisionDamage: 1
   projectile: {fileID: 100000, guid: 38c67dc09f76dc041b75ea02003bedb4, type: 2}
   maxRange: 40
   minRange: 20

@@ -7,6 +7,8 @@ using System.Collections;
 public class PlayerShipController : ShipBase {
 	//Serialized Fields
 	public float timePerShot;		//Seconds per shot
+	public float timePerCharge;
+	public float chargeDuration;
 	public GameObject laser;		//The projectile to use
 
 	//Public Access to health
@@ -16,6 +18,8 @@ public class PlayerShipController : ShipBase {
 
 	private Rect cameraBounds;			//Camera point to world point convertion...thing
 	private float fireTime;				//Timer to when it can fire again (0 when ready)
+	private float chargeTime;
+	private bool isInvulnerable = false;
 	private Camera mainCamera;			
 	private Manager manager;
 
@@ -36,10 +40,23 @@ public class PlayerShipController : ShipBase {
 		if (fireTime > 0) {
 			fireTime -= Time.deltaTime;
 		}
+		if (chargeTime > 0) {
+			if (isInvulnerable && chargeTime < timePerCharge - chargeDuration) {
+				isInvulnerable = false;
+			}
+			chargeTime -= Time.deltaTime;
+		}
 		if (Input.GetButton ("Fire1")) {				//Is Fire down?
 			if (fireTime <= 0) {
 				Instantiate(laser, transform.position + (Vector3)mouseDelta.normalized, transform.rotation);
 				fireTime = timePerShot;
+			}
+		}
+		if (Input.GetButton ("Charge")) {
+			if (chargeTime <= 0) {
+				rigidbody2D.velocity = new Vector2 (50 * Mathf.Cos (Mathf.Deg2Rad * this.targetAngle), 50 * Mathf.Sin (Mathf.Deg2Rad * this.targetAngle));
+				chargeTime = timePerCharge;
+				isInvulnerable = true;
 			}
 		}
 	}
@@ -64,7 +81,7 @@ public class PlayerShipController : ShipBase {
 	}
 
 	public override void Damage (int amount) {
-		if (!manager.RemoveExp (amount)) {
+		if (!isInvulnerable && !manager.RemoveExp (amount)) {
 			Destroy(this.gameObject);
 		}
 	}
