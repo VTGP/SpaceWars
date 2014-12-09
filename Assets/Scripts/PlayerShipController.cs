@@ -10,6 +10,14 @@ public class PlayerShipController : ShipBase {
 	public float timePerCharge;
 	public float chargeDuration;
 	public GameObject laser;		//The projectile to use
+	public float rapidFireRate;
+
+	public enum LaserPowerUp {
+		Default,
+		RapidFire,
+		Multishot,
+		Beam
+	}
 
 	//Public Access to health
 	public float healthPercent {
@@ -22,7 +30,7 @@ public class PlayerShipController : ShipBase {
 	private bool isInvulnerable = false;
 	private Camera mainCamera;			
 	private Manager manager;
-
+	private LaserPowerUp laserPowerUp = LaserPowerUp.RapidFire;
 	// Use this for initialization
 	void Start () {
 		SetUp ();
@@ -34,7 +42,7 @@ public class PlayerShipController : ShipBase {
 
 	//Called each frame
 	void Update () {
-		Vector2 mouseDelta = CameraToWorld (Input.mousePosition) - (Vector2)transform.position;
+		Vector2 mouseDelta = (CameraToWorld (Input.mousePosition) - (Vector2)transform.position).normalized;		//Normalized
 		targetVelocity = new Vector2 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical")).normalized * speed; 		//Retrieves input from the axis variables
 		targetAngle = mouseDelta.y < 0 ? 360 - Vector2.Angle(mouseDelta, Vector2.right) : Vector2.Angle(mouseDelta, Vector2.right);
 		if (fireTime > 0) {
@@ -48,8 +56,24 @@ public class PlayerShipController : ShipBase {
 		}
 		if (Input.GetButton ("Fire1")) {				//Is Fire down?
 			if (fireTime <= 0) {
-				Instantiate(laser, transform.position + (Vector3)mouseDelta.normalized, transform.rotation);
-				fireTime = timePerShot;
+				switch (laserPowerUp) {
+				case LaserPowerUp.Default:
+					Instantiate(laser, transform.position + (Vector3)mouseDelta, transform.rotation);
+					fireTime = timePerShot;
+					break;
+				case LaserPowerUp.Multishot:
+					Instantiate(laser, transform.position + new Vector3(mouseDelta.x * .866f - mouseDelta.y * .5f,
+					    mouseDelta.y * .866f + mouseDelta.x * .5f, 0), transform.rotation * new Quaternion(0,0,.2588f, .9659f));
+					Instantiate(laser, transform.position + new Vector3(mouseDelta.x * .866f + mouseDelta.y * .5f,
+						mouseDelta.y * .866f - mouseDelta.x * .5f, 0), transform.rotation * new Quaternion(0,0,-.2588f, .9659f));
+					Instantiate(laser, transform.position + (Vector3)mouseDelta, transform.rotation);
+					fireTime = timePerShot;
+					break;
+				case LaserPowerUp.RapidFire:
+					Instantiate(laser, transform.position + (Vector3)mouseDelta, transform.rotation);
+					fireTime = timePerShot / rapidFireRate;
+					break;
+				}
 			}
 		}
 		if (Input.GetButton ("Charge")) {
